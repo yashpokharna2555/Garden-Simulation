@@ -70,6 +70,9 @@ public class GardenUIController {
     private Label parasiteStatusLabel;
 
     @FXML
+    private Label tipLabel;
+
+    @FXML
     private GridPane gridPane;
     @FXML
     private MenuButton vegetableMenuButton;
@@ -91,6 +94,19 @@ public class GardenUIController {
 
 //    Same as above but for the parasites
     private ParasiteManager parasiteManager = ParasiteManager.getInstance();
+
+    private final String[] gardeningTips = {
+        "Water your plants early in the morning to reduce evaporation",
+        "Add mulch around plants to retain moisture and prevent weeds",
+        "Rotate your crops annually to prevent soil depletion",
+        "Plant companion plants to naturally deter pests",
+        "Prune dead or yellowing leaves to promote healthy growth",
+        "Use organic fertilizers for sustainable gardening",
+        "Check soil moisture before watering to avoid overwatering",
+        "Leave space between plants for proper air circulation",
+        "Save seeds from your best performing plants",
+        "Keep a gardening journal to track plant progress"
+    };
 
     public GardenUIController() {
         gardenGrid = GardenGrid.getInstance();
@@ -136,6 +152,9 @@ public class GardenUIController {
         showOptimalTemperature();
 
         showNoParasites();
+
+        // Initialize the first tip
+        tipLabel.setText(gardeningTips[0]);
 
 //        Stage stage = (Stage) anchorPane.getScene().getWindow();
 //        Scene scene = anchorPane.getScene();
@@ -430,6 +449,21 @@ private void handleSprinklerEvent(SprinklerEvent event) {
             javafx.animation.FadeTransition fadeIn = new javafx.animation.FadeTransition(Duration.millis(200), currentDay);
             fadeIn.setFromValue(0.5);
             fadeIn.setToValue(1.0);
+
+            // Update tip with animation
+            javafx.animation.FadeTransition tipFadeOut = new javafx.animation.FadeTransition(Duration.millis(200), tipLabel);
+            tipFadeOut.setFromValue(1.0);
+            tipFadeOut.setToValue(0.0);
+            
+            javafx.animation.FadeTransition tipFadeIn = new javafx.animation.FadeTransition(Duration.millis(200), tipLabel);
+            tipFadeIn.setFromValue(0.0);
+            tipFadeIn.setToValue(1.0);
+            
+            tipFadeOut.setOnFinished(e -> {
+                // Update tip text and play fade in
+                tipLabel.setText(gardeningTips[event.getDay() % gardeningTips.length]);
+                tipFadeIn.play();
+            });
             
             // Play the animations in sequence
             scaleOut.setOnFinished(e -> {
@@ -443,6 +477,7 @@ private void handleSprinklerEvent(SprinklerEvent event) {
             // Start the animation sequence
             scaleOut.play();
             fadeOut.play();
+            tipFadeOut.play();
             
             System.out.println("Day changed from " + oldValue + " to: " + event.getDay());
         });
