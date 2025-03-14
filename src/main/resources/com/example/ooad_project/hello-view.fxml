@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuItem?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ooad_project.GardenUIController">
+    <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0">
+        <children>
+            <!-- Background Image -->
+            <ImageView fitHeight="800.0" fitWidth="1200.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <image>
+                    <Image url="@garden.jpg" />
+                </image>
+            </ImageView>
+            
+            <!-- Status Panel at the Top with Gradient Background -->
+            <AnchorPane style="-fx-background-color: linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.85), rgba(255,255,255,0.95)); -fx-background-radius: 20;" 
+                      AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+                <HBox alignment="CENTER" spacing="60.0" style="-fx-padding: 20;">
+                    <!-- Current Day Status with Calendar Style -->
+                    <VBox spacing="5" alignment="CENTER" styleClass="calendar-box">
+                        <Text text="DAY" style="-fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 20;" fill="#2a7f62"/>
+                        <Label fx:id="currentDay" text="1" style="-fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: #2a7f62;"/>
+                    </VBox>
+
+                    <!-- Weather Status -->
+                    <VBox spacing="5" alignment="CENTER" styleClass="status-box">
+                        <Text text="WEATHER" style="-fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 20;" fill="#005f99"/>
+                        <HBox alignment="CENTER" spacing="10">
+                            <ImageView fx:id="weatherIcon" fitHeight="30" fitWidth="30"/>
+                            <Label fx:id="rainStatusLabel" text="Sunny" style="-fx-font-size: 24; -fx-text-fill: #4b8a08;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Temperature Status -->
+                    <VBox spacing="5" alignment="CENTER" styleClass="status-box">
+                        <Text text="TEMPERATURE" style="-fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 20;" fill="#ff9100"/>
+                        <HBox alignment="CENTER" spacing="10">
+                            <ImageView fx:id="tempIcon" fitHeight="30" fitWidth="30"/>
+                            <Label fx:id="temperatureStatusLabel" text="Optimal" style="-fx-font-size: 24; -fx-text-fill: #b22222;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Parasite Status -->
+                    <VBox spacing="5" alignment="CENTER" styleClass="status-box">
+                        <Text text="PARASITE" style="-fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 20;" fill="#8b0000"/>
+                        <HBox alignment="CENTER" spacing="10">
+                            <ImageView fx:id="parasiteIcon" fitHeight="30" fitWidth="30"/>
+                            <Label fx:id="parasiteStatusLabel" text="No Parasites" style="-fx-font-size: 24; -fx-text-fill: #ff5100;"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </AnchorPane>
+
+            <!-- VBox for centering the GridPane -->
+            <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="10">
+                <HBox alignment="CENTER" spacing="10">
+                    <GridPane fx:id="gridPane" gridLinesVisible="true" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-grid-lines-visible: true; -fx-padding: 10; -fx-hgap: 5; -fx-vgap: 5;">
+                        <!-- Column and Row constraints will be added dynamically in the controller -->
+                    </GridPane>
+                </HBox>
+            </VBox>
+
+            <!-- Actions Panel with Gradient Background -->
+            <VBox spacing="20" styleClass="actions-panel" 
+                  AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0">
+                <Text text="ACTIONS" style="-fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-font-size: 28;" fill="#ff9100"/>
+                
+                <MenuButton fx:id="treeMenuButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="220.0" 
+                           styleClass="menu-button-tree">
+                    <text>🌳 Add Tree</text>
+                </MenuButton>
+                
+                <MenuButton fx:id="flowerMenuButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="220.0"
+                           styleClass="menu-button-flower">
+                    <text>🌸 Add Flower</text>
+                </MenuButton>
+                
+                <MenuButton fx:id="vegetableMenuButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="220.0"
+                           styleClass="menu-button-vegetable">
+                    <text>🥕 Add Vegetable</text>
+                </MenuButton>
+            </VBox>
+        </children>
+    </AnchorPane>
+
+    <style>
+        .calendar-box {
+            -fx-background-color: rgba(255, 255, 255, 0.9);
+            -fx-padding: 15;
+            -fx-background-radius: 15;
+            -fx-border-radius: 15;
+            -fx-border-color: #2a7f62;
+            -fx-border-width: 2;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+        }
+        
+        .status-box {
+            -fx-background-color: rgba(255, 255, 255, 0.9);
+            -fx-padding: 15;
+            -fx-background-radius: 15;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+        }
+        
+        .actions-panel {
+            -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            -fx-padding: 25;
+            -fx-background-radius: 20;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 3);
+        }
+        
+        .menu-button-tree {
+            -fx-background-color: linear-gradient(to right, #4CAF50, #45a049);
+            -fx-text-fill: white;
+            -fx-font-size: 18;
+            -fx-font-weight: bold;
+            -fx-background-radius: 25;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+        }
+        
+        .menu-button-flower {
+            -fx-background-color: linear-gradient(to right, #FF69B4, #ff5ca8);
+            -fx-text-fill: white;
+            -fx-font-size: 18;
+            -fx-font-weight: bold;
+            -fx-background-radius: 25;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+        }
+        
+        .menu-button-vegetable {
+            -fx-background-color: linear-gradient(to right, #FFA500, #ff9100);
+            -fx-text-fill: white;
+            -fx-font-size: 18;
+            -fx-font-weight: bold;
+            -fx-background-radius: 25;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+        }
+        
+        .menu-button-tree:hover, .menu-button-flower:hover, .menu-button-vegetable:hover {
+            -fx-scale-x: 1.05;
+            -fx-scale-y: 1.05;
+            -fx-cursor: hand;
+        }
+        
+        .menu-button-tree > .arrow-button,
+        .menu-button-flower > .arrow-button,
+        .menu-button-vegetable > .arrow-button {
+            -fx-padding: 0;
+        }
+        
+        .menu-button-tree > .arrow-button > .arrow,
+        .menu-button-flower > .arrow-button > .arrow,
+        .menu-button-vegetable > .arrow-button > .arrow {
+            -fx-padding: 0;
+        }
+        
+        .menu-item {
+            -fx-background-color: white;
+            -fx-padding: 10 20;
+            -fx-font-size: 16;
+        }
+        
+        .menu-item:hover {
+            -fx-background-color: #f0f0f0;
+        }
+        
+        .menu-button {
+            -fx-transition: all 0.2s ease-in-out;
+        }
+    </style>
+</StackPane>
